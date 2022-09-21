@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
 import static itp_library.Dashboard.content;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Antonio
@@ -892,6 +893,7 @@ public class UpBooks extends javax.swing.JPanel {
                         }
                     } catch (SQLException ex) {
                         Logger.getLogger(UpUsers.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Error al registrar el libro \n Revise por favor que el código de libro sea el correcto");
                     }
                 }catch(NumberFormatException ex){
                     javax.swing.JOptionPane.showMessageDialog(this, "Las páginas, el Stock y el Disponible, deben ser números enteros. \n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);

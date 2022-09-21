@@ -310,7 +310,7 @@ public class Lendings extends javax.swing.JPanel {
         Statement stm = reg.createStatement();
         String date = getFechaActual();
         Date ahora = new Date();
-        Date devol = sumarFechasDias(ahora, 5);//Sumamos 5 días a la fecha actual.
+        Date devol = sumarFechasDias(ahora, 15);//Sumamos 5 días a la fecha actual.
         SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
         String dev = formateador.format(devol);
         stm.executeUpdate("INSERT INTO `lendings` (`id`, `user_id`, `book_id`, `date_out`, `date_return`) VALUES (NULL, '"+id+"', '"+ bookid +"', '"+ date +"', '"+dev+"')");

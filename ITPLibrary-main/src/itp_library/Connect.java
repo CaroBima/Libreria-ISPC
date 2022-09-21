@@ -3,6 +3,7 @@ package itp_library;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 public class Connect {
     private static Connection conn;
@@ -20,10 +21,11 @@ public class Connect {
             
             //Quitando mensajes del sistema
             // Connect?
-//            if(conn != null)
-//                System.out.println("Conexión establecida exitosamente");
+            //if(conn != null)
+            //  System.out.println("Conexión establecida exitosamente");
         }catch (ClassNotFoundException | SQLException ex){
-            System.out.println("Conexión Fallida:\n\n"+ex);
+            JOptionPane.showMessageDialog(null, "No hay conexión con la base de datos. Por favor contacte con el administrador. \n Error: "+ex);
+            //System.out.println("Conexión Fallida:\n\n"+ex); se cambia el sout por una ventana de error en caso de no poder establecerse la conexion
         }
     }
     
