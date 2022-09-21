@@ -829,9 +829,11 @@ public class UpBooks extends javax.swing.JPanel {
             || available.getText().equals("Cantidad a prestar")|| ejem.getText().equals("Ingrese la cantidad de ejemplares")){
             javax.swing.JOptionPane.showMessageDialog(this, "Debe llenar todos los campos \n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
             id.requestFocus();
-        }
-        else
-        {
+        }if(Integer.parseInt(available.getText()) > Integer.parseInt(stock.getText())){
+            javax.swing.JOptionPane.showMessageDialog(this, "La cantidad de libros a prestar no puede superar el total de ejemplares.\n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            stock.setText(""); //seteamos valores a cero para que los vuelva a pedir y no de error
+            available.setText("");
+        }else{
             String bid = id.getText();
             String btitle = title.getText();
             String bdate = date.getText();
@@ -904,6 +906,15 @@ public class UpBooks extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonMousePressed
 
+    private static boolean isNumeric(String cadena){
+	try {
+		Integer.parseInt(cadena);
+		return true;
+	} catch (NumberFormatException nfe){
+		return false;
+	}
+}
+    
     void setColor(JPanel panel){
         panel.setBackground(new Color(21,101,192));
     }

@@ -313,12 +313,12 @@ public class Books extends javax.swing.JPanel {
             }
             else{
                 Statement stm = reg.createStatement();
-                ResultSet counter = stm.executeQuery("SELECT * FROM `books`");
+                ResultSet counter = stm.executeQuery("SELECT * FROM `books` ");
 
                 int count = 0;
                 while(counter.next()){count++;}
 
-                String list[][] = new String[count][12];
+                String list[][] = new String[count][13];
                 int i = 0;
                 ResultSet re = stm.executeQuery("SELECT * FROM `books`");
                 while(re.next()){
@@ -334,6 +334,7 @@ public class Books extends javax.swing.JPanel {
                     list[i][9] = re.getString("ejemplares");
                     list[i][10] = re.getString("stock");
                     list[i][11] = re.getString("available");
+                    list[i][12] = re.getString("borrado");
                     i++;
                 }
                 String id = list[idcell][0];
@@ -341,6 +342,20 @@ public class Books extends javax.swing.JPanel {
                     javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar el libro a borrar. \n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
+                    String bid = ""+list[idcell][0];
+                    String btitle = list[idcell][1];
+                    String bdate = list[idcell][2];
+                    String bauthor = list[idcell][3];
+                    String bcategory = list[idcell][4];
+                    String bedit = list[idcell][5];
+                    String blang = list[idcell][6];
+                    String bpages = list[idcell][7];
+                    String bdesc = list[idcell][8];
+                    String bejem = list[idcell][9];
+                    String bstock = list[idcell][10];
+                    String bavai = list[idcell][11];
+                    String borrado = list[idcell][12];
+                    
                     Statement stm2=null;
                     try {
                     stm2 = reg.createStatement();
@@ -348,7 +363,10 @@ public class Books extends javax.swing.JPanel {
                     Logger.getLogger(Reports.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     try {
-                    stm2.executeUpdate("DELETE FROM `books` WHERE `id` = '"+id+"' LIMIT 1");
+                        
+                    stm2.executeUpdate("UPDATE `books` SET `id` = '"+bid+"', `title` = '"+btitle+"', `date` = '"+bdate+"', `author` = '"+bauthor+"', `category` = '"+bcategory+"', `edit` = '"+bedit+"', `lang` = '"+blang+"', `pages` = '"+bpages+"', `description` = '"+bdesc+"', `ejemplares` = '"+bejem+"', `stock` = '"+bstock+"', `available` = '"+bavai+"', `borrado` = '"+1+"' WHERE `id` = '"+ bid +"';");
+                    //quitamos el borrado y agregamos borrado logico para evitar inconsistencias en los prestamos vigentes    
+                    //stm2.executeUpdate("DELETE FROM `books` WHERE `id` = '"+id+"' LIMIT 1");
                     javax.swing.JOptionPane.showMessageDialog(this, "¡Libro borrado! \n", "HECHO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                     GetBooks();
                     } catch (SQLException ex) {
@@ -378,7 +396,7 @@ public class Books extends javax.swing.JPanel {
 
                 String list[][] = new String[count][12];
                 int i = 0;
-                ResultSet re = stm.executeQuery("SELECT * FROM `books`");
+                ResultSet re = stm.executeQuery("SELECT * FROM `books` WHERE borrado = 0;");
                 while(re.next()){
                     list[i][0] = re.getString("id");
                     list[i][1] = re.getString("title");
@@ -474,14 +492,14 @@ public class Books extends javax.swing.JPanel {
     
     private void GetBooks() throws SQLException{
         Statement stm = reg.createStatement();
-        ResultSet counter = stm.executeQuery("SELECT * FROM `books`");
+        ResultSet counter = stm.executeQuery("SELECT * FROM `books` WHERE borrado = 0;");
         
         int count = 0;
         while(counter.next()){count++;}
         
         String list[][] = new String[count][12];
         int i = 0;
-        ResultSet re = stm.executeQuery("SELECT * FROM `books`");
+        ResultSet re = stm.executeQuery("SELECT * FROM `books` WHERE borrado = 0;");
         while(re.next()){
             list[i][0] = re.getString("id");
             list[i][1] = re.getString("title");
