@@ -191,21 +191,34 @@ public class Reports extends javax.swing.JPanel {
         int count = 0;
         while(counter.next()){count++;}
         
-        String list[][] = new String[count][4];
+        String list[][] = new String[count][7];
         int i = 0;
-        ResultSet re = stm.executeQuery("SELECT * FROM `lendings`");
+        //consulta original:
+        //ResultSet re = stm.executeQuery("SELECT * FROM `lendings`");
+        //consulta modificada para mostrar los detalles del prestamo de libros
+        ResultSet re = stm.executeQuery("SELECT b.title, b.author, b.id, u.name, u.last_name_p, l.date_out, l.date_return FROM books b, users u, lendings l WHERE (b.id = l.book_id) & (u.id = l.user_id)");
         while(re.next()){
-            list[i][0] = re.getString("user_id");
-            list[i][1] = re.getString("book_id");
-            list[i][2] = re.getString("date_out");
-            list[i][3] = re.getString("date_return");
+            list[i][0] = re.getString("id");
+            list[i][1] = re.getString("title");
+            list[i][2] = re.getString("author");
+            list[i][3] = re.getString("name");
+            list[i][4] = re.getString("last_name_p");
+            list[i][5] = re.getString("date_out");
+            list[i][6] = re.getString("date_return");
+            
+            
+            //Codigo original
+//            list[i][0] = re.getString("user_id");
+//            list[i][1] = re.getString("book_id");
+//            list[i][2] = re.getString("date_out");
+//            list[i][3] = re.getString("date_return");
             i++;
         }
         
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
         list,
         new String [] {
-            "User ID", "Book ID", "Fecha de Salida", "Fecha de Entrega"
+            "Book ID", "Título", "Autor", "Nombre Usuario", "Apellido Usuario", "Fecha de Salida", "Fecha de Entrega"
         }));
     }
 
