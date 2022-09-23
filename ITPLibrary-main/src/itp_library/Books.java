@@ -313,14 +313,14 @@ public class Books extends javax.swing.JPanel {
             }
             else{
                 Statement stm = reg.createStatement();
-                ResultSet counter = stm.executeQuery("SELECT * FROM `books` ");
+                ResultSet counter = stm.executeQuery("SELECT * FROM `books`");
 
                 int count = 0;
                 while(counter.next()){count++;}
 
                 String list[][] = new String[count][13];
                 int i = 0;
-                ResultSet re = stm.executeQuery("SELECT * FROM `books`");
+                ResultSet re = stm.executeQuery("SELECT * FROM `books` WHERE borrado = 0 ");
                 while(re.next()){
                     list[i][0] = re.getString("id");
                     list[i][1] = re.getString("title");
@@ -358,19 +358,18 @@ public class Books extends javax.swing.JPanel {
                     
                     Statement stm2=null;
                     try {
-                    stm2 = reg.createStatement();
+                        stm2 = reg.createStatement();
                     } catch (SQLException ex) {
-                    Logger.getLogger(Reports.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Reports.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     try {
-                        
-                    stm2.executeUpdate("UPDATE `books` SET `id` = '"+bid+"', `title` = '"+btitle+"', `date` = '"+bdate+"', `author` = '"+bauthor+"', `category` = '"+bcategory+"', `edit` = '"+bedit+"', `lang` = '"+blang+"', `pages` = '"+bpages+"', `description` = '"+bdesc+"', `ejemplares` = '"+bejem+"', `stock` = '"+bstock+"', `available` = '"+bavai+"', `borrado` = '"+1+"' WHERE `id` = '"+ bid +"';");
-                    //quitamos el borrado y agregamos borrado logico para evitar inconsistencias en los prestamos vigentes    
-                    //stm2.executeUpdate("DELETE FROM `books` WHERE `id` = '"+id+"' LIMIT 1");
-                    javax.swing.JOptionPane.showMessageDialog(this, "¡Libro borrado! \n", "HECHO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-                    GetBooks();
+                        stm2.executeUpdate("UPDATE `books` SET `id` = '"+id+"', `title` = '"+btitle+"', `date` = '"+bdate+"', `author` = '"+bauthor+"', `category` = '"+bcategory+"', `edit` = '"+bedit+"', `lang` = '"+blang+"', `pages` = '"+bpages+"', `description` = '"+bdesc+"', `ejemplares` = '"+bejem+"', `stock` = '"+bstock+"', `available` = '"+bavai+"', `borrado` = '"+1+"' WHERE `id` = '"+ id +"';");
+                        //quitamos el borrado y agregamos borrado logico para evitar inconsistencias en los prestamos vigentes    
+                        //stm2.executeUpdate("DELETE FROM `books` WHERE `id` = '"+id+"' LIMIT 1");
+                        javax.swing.JOptionPane.showMessageDialog(this, "¡Libro borrado! \n", "HECHO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                        GetBooks();
                     } catch (SQLException ex) {
-                    Logger.getLogger(Reports.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Reports.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
