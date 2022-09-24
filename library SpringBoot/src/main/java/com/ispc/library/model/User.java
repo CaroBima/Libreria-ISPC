@@ -14,16 +14,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User {
-    private int id;
+    //private int id;
+    private String username;
+    private String password;
     private String name;
-    private String lastNameP;
-    private String lastNameM;
+    private String last_name_p;
+    private String last_name_m;
     private String domicilio;
     private String tel;
     private int sanctions;
     private int sanc_money;
-    
-    
-    
-    
-}
+ }
