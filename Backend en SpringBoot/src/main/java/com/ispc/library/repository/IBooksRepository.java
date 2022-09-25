@@ -2,6 +2,7 @@
 package com.ispc.library.repository;
 
 import com.ispc.library.model.Book;
+import dto.LibrosDisponiblesDto;
 import java.util.List;
 
 /**
@@ -10,6 +11,6 @@ import java.util.List;
  */
 public interface IBooksRepository {
     public List<Book> traerTodosLibros();
-    public List<Book> traerLibrosDisponibles();
+    public List<LibrosDisponiblesDto> traerLibrosDisponibles();
     
 }
