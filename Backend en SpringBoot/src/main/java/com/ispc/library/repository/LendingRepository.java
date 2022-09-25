@@ -42,7 +42,7 @@ public class LendingRepository implements ILendingRepository {
                                         LendingDto l=new LendingDto();  
                                         l.setIdLibro(rs.getInt(1));
                                         l.setNombreLibro(rs.getString(2));  
-                                        l.setNombreLibro(rs.getString(3));
+                                        l.setAutorLibro(rs.getString(3));
                                         l.setFechaSalida(rs.getString(4));
                                         l.setFechaPrevistaDevolucion(rs.getString(5));
                                         list.add(l);  

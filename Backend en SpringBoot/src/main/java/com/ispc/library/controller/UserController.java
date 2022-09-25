@@ -25,7 +25,7 @@ public class UserController {
         userService.registrarUsuario(usuario);
     }
     
-    @PostMapping("/loggin")
+    @PostMapping("/loguin")
     public boolean logginUsuario( @RequestBody LoguinDto datosLoguin){
     
         //falta validar que llegue un string de usuario y de clave, y que el usuario aparezca en la bbdd
